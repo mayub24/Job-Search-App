@@ -2,11 +2,6 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import admin from "firebase-admin";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,28 +9,26 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-const serviceAccount = path.join(__dirname, "firebase-key.json");
+// Initialize Firebase Admin using environment variable
+const serviceAccount = JSON.parse(process.env.FIREBASE_CREDENTIALS);
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 });
 
 const db = admin.firestore();
-const jobsCollection = db.collection("jobs")
+const jobsCollection = db.collection("jobs");
 
 // ROUTES
 app.get("/api/jobs", async (req, res) => {
   try {
     const snapshot = await jobsCollection.get(); // get all documents
     const jobs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    console.log(jobs);
     res.json(jobs);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
-
-
 
 app.get("/api/jobs/:id", async (req, res) => {
   try {
@@ -47,7 +40,6 @@ app.get("/api/jobs/:id", async (req, res) => {
   }
 });
 
-
 app.post("/api/jobs", async (req, res) => {
   try {
     const newDoc = await jobsCollection.add(req.body);
@@ -57,7 +49,6 @@ app.post("/api/jobs", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 app.put("/api/jobs/:id", async (req, res) => {
   try {
@@ -70,7 +61,6 @@ app.put("/api/jobs/:id", async (req, res) => {
   }
 });
 
-
 app.delete("/api/jobs/:id", async (req, res) => {
   try {
     await jobsCollection.doc(req.params.id).delete();
@@ -80,8 +70,7 @@ app.delete("/api/jobs/:id", async (req, res) => {
   }
 });
 
-
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

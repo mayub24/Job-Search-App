@@ -37,7 +37,7 @@ const EditJobPage = ({ updateJobListing }) => {
 
     const setVal = (e) => {
         e.preventDefault();
-        
+
         const { name, value } = e.target;
 
         switch (name) {

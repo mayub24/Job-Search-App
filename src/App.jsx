@@ -11,9 +11,15 @@ import EditJobPage from "./pages/EditJobPage";
 
 const App = () => {
 
+  const API_URL =
+  import.meta.env.PROD
+    ? "https://job-search-app-n274.onrender.com/api"
+    : "/api";
+
+
   // Add New Job
   const addJob = async (newJob) => {
-      const res = await fetch('/api/jobs', {
+      const res = await fetch(`${API_URL}/jobs`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -28,7 +34,7 @@ const deletingJob = async (id, singleJob) => {
   console.log(id);
   
   try {    
-    const res = await fetch(`/api/jobs/${id}`, {
+    const res = await fetch(`${API_URL}/jobs/${id}`, {
           method: 'DELETE'
         });
         if (!res.ok) {
@@ -49,7 +55,7 @@ const deletingJob = async (id, singleJob) => {
 
 // Update job
 const updateJob = async (updatedInfo) => {
- const res = await fetch(`/api/jobs/${updatedInfo.id}`, {
+ const res = await fetch(`${API_URL}/jobs/${updatedInfo.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -62,7 +68,7 @@ const updateJob = async (updatedInfo) => {
 const router = createBrowserRouter(
   createRoutesFromElements (
     <Route path="/" element = {<MainLayout />}>
-      <Route path='/' element = {<HomePage />} />
+      <Route path='/' element = {<HomePage job_url={API_URL} />} />
       <Route path='/jobs' element = {<JobsPage />} />
       <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} />} loader={jobLoader} />
       <Route path='/add-job' element={<AddNewJob addJobSubmit={addJob} />} />

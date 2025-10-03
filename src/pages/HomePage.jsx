@@ -5,16 +5,19 @@ import ViewAllJobs from "../components/ViewAllJobs";
 import Devs from "../components/Devs";
 
 
-const HomePage = () => {
+const HomePage = ({job_url}) => {
 
     const title = "Become a React Dev";
     const subtitle = "Find the React job that fits your skills";
+
+    console.log(job_url);
+    
 
   return (
     <>
     <Hero title = {title} subtitle={subtitle} />
     <Devs />
-    <Jobs />
+    <Jobs job_url={job_url} />
     <ViewAllJobs />
     </>
   )

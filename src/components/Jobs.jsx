@@ -4,7 +4,7 @@ import EachJob from './EachJob';
 import NoAvailableJobs from './NoAvailableJobs';
 
 
-const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3 }) => {
+const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_url }) => {
     const changeTitle =  isJobsPage ? `${title} on Job Page` : `${title} on Home Page`;
 
     const [jobs, setJobs] = useState([]);
@@ -17,7 +17,7 @@ const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3 }) =>
       const fetchJobs = async () => {
         
         try {
-          const res = await fetch(`/api/jobs?_limit=${numberOfJobs}`);
+          const res = await fetch(`${job_url}/jobs?_limit=${numberOfJobs}`);
           const data = await res.json();
           setJobs(data);
         } catch (error) {

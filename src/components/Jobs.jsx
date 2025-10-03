@@ -9,6 +9,8 @@ const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_
 
     const [jobs, setJobs] = useState([]);
     const [loader, setLoader] = useState(true);
+
+    console.log(job_url);
     
 
     useEffect(() => {

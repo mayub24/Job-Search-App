@@ -9,8 +9,6 @@ const HomePage = ({job_url}) => {
 
     const title = "Become a React Dev";
     const subtitle = "Find the React job that fits your skills";
-
-    console.log(job_url);
     
 
   return (

@@ -69,8 +69,8 @@ const router = createBrowserRouter(
   createRoutesFromElements (
     <Route path="/" element = {<MainLayout />}>
       <Route path='/' element = {<HomePage job_url={API_URL} />} />
-      <Route path='/jobs' element = {<JobsPage />} />
-      <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} />} loader={jobLoader} />
+      <Route path='/jobs' element = {<JobsPage job_url={API_URL} />} />
+      <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} job_url={API_URL} />} loader={jobLoader} />
       <Route path='/add-job' element={<AddNewJob addJobSubmit={addJob} />} />
       <Route path='/add-job' element = {<AddJob />} />
       <Route path='/jobs/edit/:id' element = {<EditJobPage updateJobListing={updateJob} />} loader={jobLoader} />

@@ -4,7 +4,7 @@ import Spinner from '../components/Spinner';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { FaMapMarker } from 'react-icons/fa';
 
-const SingleJob = ({ deleteJob }) => {
+const SingleJob = ({ deleteJob, job_url }) => {
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -139,7 +139,7 @@ const SingleJob = ({ deleteJob }) => {
 }
 
 const jobLoader = async ({params}) => {
-  const res = await fetch(`/api/jobs/${params.id}`);
+  const res = await fetch(`${job_url}/jobs/${params.id}`);
   const data = await res.json();
   return data;
 }

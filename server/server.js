@@ -36,13 +36,21 @@ const jobsCollection = db.collection("jobs");
 // ROUTES
 app.get("/api/jobs", async (req, res) => {
   try {
-    const snapshot = await jobsCollection.get(); // get all documents
+    const limit = parseInt(req.query._limit); // read _limit from query string
+    let query = jobsCollection;
+
+    if (!isNaN(limit)) {
+      query = query.limit(limit); // apply limit if valid
+    }
+
+    const snapshot = await query.get();
     const jobs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     res.json(jobs);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 app.get("/api/jobs/:id", async (req, res) => {
   try {

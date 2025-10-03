@@ -11,8 +11,6 @@ const SingleJob = ({ deleteJob, job_url }) => {
   const singleJob = useLoaderData(); // gets data from the jobLoader
   console.log(singleJob);
   
-
-
   // useEffect(() => {
 
   //   const url = `/api/jobs/${id}`;
@@ -139,7 +137,13 @@ const SingleJob = ({ deleteJob, job_url }) => {
 }
 
 const jobLoader = async ({params}) => {
-  const res = await fetch(`${job_url}/jobs/${params.id}`);
+    const API_URL =
+  import.meta.env.PROD
+    ? "https://job-search-app-n274.onrender.com/api"
+    : "/api";
+
+
+  const res = await fetch(`${API_URL}/jobs/${params.id}`);
   const data = await res.json();
   return data;
 }

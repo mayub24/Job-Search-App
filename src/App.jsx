@@ -31,7 +31,6 @@ const App = () => {
 
 // delete job
 const deletingJob = async (id, singleJob) => {
-  console.log(id);
   
   try {    
     const res = await fetch(`${API_URL}/jobs/${id}`, {
@@ -43,7 +42,6 @@ const deletingJob = async (id, singleJob) => {
            return false;
         }
         else {
-          console.log("Job deleted successfully: ", singleJob);
           alert(`Job ${singleJob.title} has been deleted.`);
           return true;
         }
@@ -70,7 +68,7 @@ const router = createBrowserRouter(
     <Route path="/" element = {<MainLayout />}>
       <Route path='/' element = {<HomePage job_url={API_URL} />} />
       <Route path='/jobs' element = {<JobsPage job_url={API_URL} />} />
-      <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} job_url={API_URL} />} loader={jobLoader} />
+      <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} />} loader={jobLoader} />
       <Route path='/add-job' element={<AddNewJob addJobSubmit={addJob} />} />
       <Route path='/add-job' element = {<AddJob />} />
       <Route path='/jobs/edit/:id' element = {<EditJobPage updateJobListing={updateJob} />} loader={jobLoader} />

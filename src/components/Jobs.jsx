@@ -4,7 +4,7 @@ import EachJob from './EachJob';
 import NoAvailableJobs from './NoAvailableJobs';
 
 
-const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_url }) => {
+const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_url, jobsChanged }) => {
     const changeTitle =  isJobsPage ? `${title} on Job Page` : `${title} on Home Page`;
 
     const [jobs, setJobs] = useState([]);
@@ -30,7 +30,7 @@ const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_
       fetchJobs();
       
 
-    }, []);
+    }, [jobsChanged]);
 
 
   return (

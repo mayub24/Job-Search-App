@@ -31,7 +31,7 @@ const SingleJob = ({ deleteJob, job_url }) => {
   // }, [])
 
   const onDeleteClick = (jobId) => {
-    const confirm = window.confirm(`Are you sure you want to delete job #${jobId}?`);
+    const confirm = window.confirm(`Are you sure you want to delete job "${singleJob.title}"?`);
     
     if (!confirm) {
       return;

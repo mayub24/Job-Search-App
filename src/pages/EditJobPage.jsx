@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
 import { useLoaderData, useParams, useNavigate } from 'react-router-dom'
 
-const EditJobPage = ({ updateJobListing }) => {
+const EditJobPage = ({ updateJobListing, jobsChanged }) => {
 
     const singleJob = useLoaderData();
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ const EditJobPage = ({ updateJobListing }) => {
             setContactEmail(singleJob.company?.contactEmail || '');
             setContactPhone(singleJob.company?.contactPhone || '');
         }
-}, [singleJob]);
+}, [singleJob, jobsChanged]);
 
 
     const setVal = (e) => {

@@ -11,6 +11,8 @@ import EditJobPage from "./pages/EditJobPage";
 
 const App = () => {
 
+  const [jobsChanged, setJobsChanged] = useState(0);
+
   const API_URL =
   import.meta.env.PROD
     ? "https://job-search-app-n274.onrender.com/api"
@@ -26,7 +28,9 @@ const App = () => {
         },
         body: JSON.stringify(newJob)
       }) 
-      return;
+      
+      setJobsChanged(prev => prev + 1);
+
 }
 
 // delete job
@@ -43,6 +47,7 @@ const deletingJob = async (id, singleJob) => {
         }
         else {
           alert(`Job ${singleJob.title} has been deleted.`);
+
           return true;
         }
   } catch (error) {
@@ -60,18 +65,20 @@ const updateJob = async (updatedInfo) => {
         },
         body: JSON.stringify(updatedInfo)
       }) 
-      return;
+      
+  setJobsChanged(prev => prev + 1);
+
 }
 
 const router = createBrowserRouter(
   createRoutesFromElements (
     <Route path="/" element = {<MainLayout />}>
       <Route path='/' element = {<HomePage job_url={API_URL} />} />
-      <Route path='/jobs' element = {<JobsPage job_url={API_URL} />} />
-      <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} />} loader={jobLoader} />
+      <Route path='/jobs' element = {<JobsPage job_url={API_URL} jobsChanged={jobsChanged} />} />
+      <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} jobsChanged={jobsChanged} />} loader={jobLoader} />
       <Route path='/add-job' element={<AddNewJob addJobSubmit={addJob} />} />
       <Route path='/add-job' element = {<AddJob />} />
-      <Route path='/jobs/edit/:id' element = {<EditJobPage updateJobListing={updateJob} />} loader={jobLoader} />
+      <Route path='/jobs/edit/:id' element = {<EditJobPage updateJobListing={updateJob} jobsChanged={jobsChanged} />} loader={jobLoader} />
       <Route path='*' element = {<NotFound />} />
     </Route>
 )

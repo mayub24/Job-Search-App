@@ -48,6 +48,7 @@ const deletingJob = async (id, singleJob) => {
         else {
           alert(`Job ${singleJob.title} has been deleted.`);
           setJobsChanged(prev => prev + 1);
+          return true;
         }
   } catch (error) {
     console.error("Error deleting job:", err);
@@ -76,7 +77,6 @@ const router = createBrowserRouter(
       <Route path='/jobs' element = {<JobsPage job_url={API_URL} jobsChanged={jobsChanged} />} />
       <Route path='/jobs/:id' element={<SingleJob deleteJob={deletingJob} jobsChanged={jobsChanged} />} loader={jobLoader} />
       <Route path='/add-job' element={<AddNewJob addJobSubmit={addJob} />} />
-      <Route path='/add-job' element = {<AddJob />} />
       <Route path='/jobs/edit/:id' element = {<EditJobPage updateJobListing={updateJob} jobsChanged={jobsChanged} />} loader={jobLoader} />
       <Route path='*' element = {<NotFound />} />
     </Route>

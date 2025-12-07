@@ -30,7 +30,7 @@ const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_
       fetchJobs();
       
 
-    }, [jobsChanged]);
+    }, [jobsChanged, job_url, numberOfJobs]);
 
 
   return (

@@ -47,8 +47,7 @@ const deletingJob = async (id, singleJob) => {
         }
         else {
           alert(`Job ${singleJob.title} has been deleted.`);
-
-          return true;
+          setJobsChanged(prev => prev + 1);
         }
   } catch (error) {
     console.error("Error deleting job:", err);

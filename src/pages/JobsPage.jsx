@@ -5,7 +5,7 @@ const JobsPage = ({job_url, jobsChanged}) => {
   return (
     <>
       <section className='bg-blue-50 px-4 py-6'>
-            <Jobs isJobsPage = {true} numberOfJobs={10} job_url={job_url} jobsChanged={jobsChanged} />
+            <Jobs isJobsPage = {true} numberOfJobs={9999} job_url={job_url} jobsChanged={jobsChanged} />
       </section>
     </>
   )

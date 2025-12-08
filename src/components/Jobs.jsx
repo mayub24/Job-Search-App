@@ -10,27 +10,26 @@ const Jobs = ({isJobsPage = false, title = "Browse Jobs", numberOfJobs = 3, job_
     const [jobs, setJobs] = useState([]);
     const [loader, setLoader] = useState(true);
     
+useEffect(() => {
+  const fetchJobs = async () => {
+    try {
+      const url = isJobsPage
+        ? `${job_url}/jobs`       
+        : `${job_url}/jobs?_limit=${numberOfJobs}`;
 
-    useEffect(() => {
+      const res = await fetch(url);
+      const data = await res.json();
+      setJobs(data);
+    } catch (error) {
+      console.log('Error in fetching data', error);
+    } finally {
+      setLoader(false);
+    }
+  };
 
-      // you need a function inside useEffect
-      const fetchJobs = async () => {
-        
-        try {
-          const res = await fetch(`${job_url}/jobs?_limit=${numberOfJobs}`);
-          const data = await res.json();
-          setJobs(data);
-        } catch (error) {
-          console.log('Error in fetching data', error);
-        } finally {
-          setLoader(false);
-        }
-      }
-
-      fetchJobs();
-      
-
-    }, [job_url, numberOfJobs, jobsChanged]);
+  fetchJobs();
+  
+}, [job_url, numberOfJobs, isJobsPage, jobsChanged]);
 
 
   return (
